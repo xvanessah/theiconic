@@ -1,0 +1,5 @@
+{% extends 'base.html.twig' %}
+{% set products = react_component_array('ProductsApp', {'props': props}) %}
+{% block body %}
+{{ products.componentHtml | raw }}
+{% endblock %}
