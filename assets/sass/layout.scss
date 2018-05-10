@@ -9,8 +9,12 @@ a:hover {
     text-decoration: none;
 }
 
-.heading {
+.title {
     margin: 0 0 3rem;
+}
+
+.main-container {
+    margin-bottom: 100px;
 }
 
 .header {
@@ -60,8 +64,69 @@ a:hover {
     & .title {
         font-weight: 300;
     }
+}
+
+.product-single {
+    & .brand-image{
+        max-width: 100px;
+    }
+
+    & .title {
+        margin: 1rem 0;
+        font-size: 2.5rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
 
     & .price {
-
+        font-size: 1.5rem;
     }
+
+    & .description {
+        padding: 1rem 0;
+    }
+
+    & .sku {
+        margin: 1rem 0;
+    }
+
+}
+
+.heading {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+}
+
+#search-box {
+    min-width: 300px;
+    display: flex;
+
+    & input[type='text']{
+        width: 70%;
+        border-radius: 0px;
+        -webkit-appearance: none;
+        box-shadow: none;
+        height: 40px;
+        border-right: 0px;
+    }
+
+    & button{
+        height: 40px;
+        background: #232323;
+        width: 30%;
+        color: white;
+        -webkit-appearance: none;
+        border: 1px solid #232323
+    }
+}
+
+.shop{
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }

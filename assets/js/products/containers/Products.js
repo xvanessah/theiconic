@@ -12,9 +12,14 @@ export default class Products extends React.Component {
             products: this.props.products,
             loading: false,
         }
+        this.fetchProducts = this.fetchProducts.bind(this);
     }
 
     componentDidMount() {
+        this.fetchProducts();
+    }
+
+    fetchProducts() {
         return fetch(this.props.base + '/api/products').then((response) => {
             return response.json();
         }).then((data) => {
@@ -33,7 +38,7 @@ export default class Products extends React.Component {
                         <Helmet>
                             <title>Products List</title>
                         </Helmet>
-                        <ProductList products={this.state.products} routePrefix={this.props.base}/>
+                        <ProductList fetchProducts={this.fetchProducts} products={this.state.products} routePrefix={this.props.base}/>
                     </div> 
                 : null}
             </div>
