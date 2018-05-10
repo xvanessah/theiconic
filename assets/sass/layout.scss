@@ -1,3 +1,67 @@
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.heading {
+    margin: 0 0 3rem;
+}
+
+.header {
+    background: #232323;
+    color: #232323;
+    line-height: 1em;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    z-index: 500;
+    height: 100px;
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999999;
+
+    & .image {
+        fill: #ffffff;
+        max-height: 24px;
+        width: 100%;
+    }
+}
+
+.product {
+    margin-bottom: 3rem;
+
+    & .description {
+        margin-top: 1.5rem;
+    }
+
+    & .text {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 13px;
+        color: #232323;
+        line-height: 1.5;
+        margin: 0 0 5px;
+    }
+
+    & .brand {
+        font-weight: 400;
+    }
+
+    & .title {
+        font-weight: 300;
+    }
+
+    & .price {
+
+    }
+}
