@@ -1,19 +1,17 @@
-import React from "react";
-import Products from "../containers/Products";
-import Product from "../containers/Product";
-import { Route } from "react-router-dom";
+import React from 'react';
+import Products from '../containers/Products';
+import Product from '../containers/Product';
+import { Route } from 'react-router-dom';
 
-const ProductsApp = ({initialProps, appContext}) => {
+const ProductsApp = ({ initialProps, appContext }) => {
   return (
     <div>
       <Route
-        path={"/product/:id"}
-        render={props => (
-          <Product {...initialProps} base={appContext.base} {...props} />
-        )}
+        path={'/product/:id'}
+        render={props => <Product {...initialProps} base={appContext.base} {...props} />}
       />
       <Route
-        path={"/"}
+        path={'/'}
         exact
         render={props => {
           return <Products {...initialProps} base={appContext.base} {...props} />;

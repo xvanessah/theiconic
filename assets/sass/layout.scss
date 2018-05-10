@@ -64,6 +64,14 @@ a:hover {
     & .title {
         font-weight: 300;
     }
+
+    & .image {
+        text-align: center;
+    }
+
+    & .loading {
+        max-width: 100px;
+    }
 }
 
 .product-single {

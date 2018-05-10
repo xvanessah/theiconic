@@ -1,79 +1,119 @@
-import React from 'react'
-import ProductLink from './ProductLink'
+import React from 'react';
+import ProductLink from './ProductLink';
 
 export default class ProductList extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      products: this.props.products,
+      query: '',
+      pageCount: 0,
+      page: 1,
+      resultsReceived: false,
+      pageSize: 0,
+      totalItems: 0,
+    };
+    this.onSearch = this.onSearch.bind(this);
+    this.pageChange = this.pageChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
 
-    constructor(props, context) {
-        super(props, context)
-        this.state = {
-            products: this.props.products,
-            query: '',
-            maxPages: 1,
-            page: 1,
-            resultsReceived: false,
-        }
-        this.onSearch = this.onSearch.bind(this)
-        this.pageChange = this.pageChange.bind(this);
-        
+  onChangeSearch(evt) {
+    this.setState({ query: evt.target.value });
+  }
+
+  handleKeyPress(event) {
+    if (event.key === 'Delete' || (event.key === 'Backspace' && this.state.query.length <= 1)) {
+      this.props.fetchProducts().then(data => {
+        this.setState({
+          products: data,
+          loading: false,
+          resultsReceived: false,
+        });
+      });
+    }
+  }
+
+  onSearch() {
+    if (this.state.query.length > 0) {
+      return fetch(`/api/search/${this.state.query}/${this.state.page}`)
+        .then(response => {
+          return response.json();
+        })
+        .then(data => {
+          this.setState({
+            resultsReceived: true,
+            pageCount: data.page_count,
+            products: data._embedded.product,
+            pageSize: data.page_size,
+            totalItems: data.total_items,
+            loading: false,
+          });
+        });
+    }
+  }
+
+  pageChange(context) {
+    let pageNum = this.state.page;
+    if (context === 'up') {
+      pageNum++;
+      this.setState({
+        pageType: 'up',
+        page: pageNum,
+      });
     }
 
-    onChangeSearch(evt) {
-        this.setState({ query: evt.target.value })
+    if (context === 'down') {
+      pageNum--;
+      this.setState({
+        page: pageNum,
+      });
     }
+    this.onSearch();
+  }
 
-    onSearch(){
-        if(this.state.query.length > 0) {
-            return fetch(`/api/search/${this.state.query}/${this.state.page}`)
-            .then(response => {
-              return response.json();
-            })
-            .then(data => {
-              this.setState({
-                resultsReceived: true,
-                maxPages: data.page_count,
-                products: data._embedded.product,
-                loading: false
-              });
-            });
-        }
-    }
-
-    pageChange(context){
-        let pageNum = this.state.page;        
-        if(context === 'up') {
-            pageNum++;
-            this.setState({
-                pageType: 'up',
-                page: pageNum
-            })
-        }
-
-        if (context === 'down') {
-            pageNum--;
-            this.setState({
-                page: pageNum
-            })
-        }
-        this.onSearch()        
-    }
-  
-    
-    render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-xs-12 heading">
-                        <h1 className="title">Shop</h1>
-                        <div id="search-box">
-                            <input type="text" className="form-control" value={this.state.filterText} placeholder="Search for..." onChange={this.onChangeSearch.bind(this)} />
-                            <button onClick={() => this.onSearch()}>SEARCH</button>
-                        </div>
-                    </div>
-                </div>
-                <ProductLink products={this.state.products} routePrefix={this.props.routePrefix}/>
-                {this.state.resultsReceived && this.state.page < this.state.maxPages  ? <button onClick={() => this.pageChange('up')}> Up </button> : null}
-                {this.state.page > 1 ? <button onClick={() => this.pageChange('down')}> Down </button> : null}               
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-xs-12 heading">
+            <h1 className="title">
+              {this.state.resultsReceived ? `Searching for ${this.state.query}` : 'Shop'}
+            </h1>
+            <div id="search-box">
+              <input
+                type="text"
+                className="form-control"
+                onKeyDown={this.handleKeyPress}
+                value={this.state.filterText}
+                placeholder="Search for..."
+                onChange={this.onChangeSearch.bind(this)}
+              />
+              <button onClick={() => this.onSearch()}>SEARCH</button>
             </div>
-        )
-    }
+          </div>
+
+        </div>
+        <div className="row results">
+          <div className="col-xs-12">
+            <p>
+              {this.state.resultsReceived
+                ? `Showing ${this.state.pageSize} of ${this.state.totalItems} results`
+                : null}
+            </p>
+          </div>
+        </div>
+        <ProductLink
+          products={this.state.products}
+          routePrefix={this.props.routePrefix}
+        />
+        {this.state.resultsReceived && this.state.page < this.state.pageCount
+          ? <button onClick={() => this.pageChange('up')}> Up </button>
+          : null}
+        {this.state.page > 1
+          ? <button onClick={() => this.pageChange('down')}> Down </button>
+          : null}
+      </div>
+    );
+  }
 }
