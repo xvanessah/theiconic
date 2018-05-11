@@ -20,7 +20,6 @@ export default class Products extends React.Component {
     this.fetchProducts().then(data => {
       this.setState({
         products: data,
-        loading: false,
         isFetching: false,
       });
     });
@@ -38,7 +37,7 @@ export default class Products extends React.Component {
         {this.state.products
           ? <div>
               <Helmet>
-                <title>Products List</title>
+                <title>The Iconic | Shop</title>
               </Helmet>
               <ProductList
                 isFetching={this.state.isFetching}

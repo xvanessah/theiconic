@@ -62,7 +62,6 @@ export default class ProductList extends React.Component {
         page: pageNum,
       });
     }
-
     if (context === 'down') {
       pageNum--;
       this.setState({
@@ -92,7 +91,6 @@ export default class ProductList extends React.Component {
               <button onClick={() => this.onSearch()}>SEARCH</button>
             </div>
           </div>
-
         </div>
         <div className="row results">
           <div className="col-xs-12">
@@ -107,12 +105,14 @@ export default class ProductList extends React.Component {
           products={this.state.products}
           routePrefix={this.props.routePrefix}
         />
-        {this.state.resultsReceived && this.state.page < this.state.pageCount
-          ? <button onClick={() => this.pageChange('up')}> Up </button>
-          : null}
-        {this.state.page > 1
-          ? <button onClick={() => this.pageChange('down')}> Down </button>
-          : null}
+        <div className="pagination">
+            {this.state.page > 1
+            ? <button onClick={() => this.pageChange('down')}>&laquo; Previous </button>
+            : null}
+            {this.state.resultsReceived && this.state.page < this.state.pageCount
+            ? <button onClick={() => this.pageChange('up')}>Next &raquo;</button>
+            : null}
+          </div>
       </div>
     );
   }

@@ -11,6 +11,7 @@ a:hover {
 
 .title {
     margin: 0 0 3rem;
+    font-size: 3rem;
 }
 
 .main-container {
@@ -105,6 +106,10 @@ a:hover {
     display: -ms-flexbox;
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 600px) {
+        flex-direction: column;
+    }
 }
 
 #search-box {
@@ -118,6 +123,7 @@ a:hover {
         box-shadow: none;
         height: 40px;
         border-right: 0px;
+        border-color: #ccc !important;
     }
 
     & button{
@@ -128,6 +134,15 @@ a:hover {
         -webkit-appearance: none;
         border: 1px solid #232323
     }
+
+    @media screen and (max-width: 600px) {
+        margin-bottom: 2rem;
+        min-width: 100%;
+    }
+
+    & :focus {
+        outline: none;
+    }
 }
 
 .shop{
@@ -137,4 +152,30 @@ a:hover {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+
+.results {
+    min-height: 30px;
+}
+
+.pagination {
+    float: right;
+
+    & button{
+        background: none;
+        -webkit-appearance: none;
+        border: 1px solid #232323;
+        font-size: 1.5rem;
+        padding: 0.4rem 1.2rem;
+        width: 80px;
+    }
+
+    & button {
+        &:last-of-type{
+            margin-left: 1rem;
+        }
+        &:focus{
+            outline: none;
+        }
+    }
 }
