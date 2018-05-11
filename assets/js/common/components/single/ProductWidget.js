@@ -25,6 +25,7 @@ export default class ProductWidget extends React.Component {
           <h1 className="title">{product.name}</h1>
           <p className="price">{`$${product.price}`}</p>
           <div className="description">
+            {/* Parse the HTML product description */}
             {ReactHtmlParser(product.short_description)}
           </div>
           <div className="sku">SKU: {product.sku}</div>

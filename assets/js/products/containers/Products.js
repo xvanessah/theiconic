@@ -5,22 +5,16 @@ import { Helmet } from 'react-helmet';
 export default class Products extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
-      products: this.props.products,
-      isFetching: false,
+      products: this.props.products
     };
     this.fetchProducts = this.fetchProducts.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      isFetching: true,
-    });
     this.fetchProducts().then(data => {
       this.setState({
         products: data,
-        isFetching: false,
       });
     });
   }
@@ -40,7 +34,6 @@ export default class Products extends React.Component {
                 <title>The Iconic | Shop</title>
               </Helmet>
               <ProductList
-                isFetching={this.state.isFetching}
                 fetchProducts={this.fetchProducts}
                 products={this.state.products}
                 routePrefix={this.props.base}

@@ -2,17 +2,10 @@ import React from 'react';
 import Product from './Product';
 import { Link } from 'react-router-dom';
 
-export default class ProductLink extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-    };
-  }
-
-  render() {
+const ProductLink = (props) => {
     return (
       <div className="row shop">
-        {this.props.products.map((product, idx) => (
+        {props.products.map((product, idx) => (
           <div className="product col-xs-6 col-sm-4 col-md-4 col-lg-3 columns" key={idx}>
             <Link to={'/product/' + product.sku}>
               <Product
@@ -25,5 +18,6 @@ export default class ProductLink extends React.Component {
         ))}
       </div>
     );
-  }
 }
+
+export default ProductLink;

@@ -6,19 +6,16 @@ import { Helmet } from 'react-helmet';
 export default class Product extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     if (
       !this.props.product ||
       (this.props.match.params.id && this.props.match.params.id != this.props.product.id)
     ) {
       this.state = {
         product: null,
-        loading: true,
       };
     } else {
       this.state = {
         product: this.props.product,
-        loading: false,
       };
     }
   }
@@ -31,7 +28,6 @@ export default class Product extends React.Component {
       .then(data => {
         this.setState({
           product: data,
-          loading: false,
         });
       });
   }
@@ -42,7 +38,7 @@ export default class Product extends React.Component {
         {this.state.product
           ? <div>
               <Helmet>
-                <title>{this.state.product.name}</title>
+                <title>{this.state.product.name} | The Iconic</title>
               </Helmet>
               <ProductWidget product={this.state.product} />
             </div>

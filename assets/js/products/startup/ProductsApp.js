@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 
 const ProductsApp = ({ initialProps, appContext }) => {
   return (
+    // Handle the routes for product archive and product single pages
     <div>
       <Route
         path={'/product/:id'}

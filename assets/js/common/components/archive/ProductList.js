@@ -23,11 +23,11 @@ export default class ProductList extends React.Component {
   }
 
   handleKeyPress(event) {
+    // When user removes search query fetch products again to return to the original state 
     if (event.key === 'Delete' || (event.key === 'Backspace' && this.state.query.length <= 1)) {
       this.props.fetchProducts().then(data => {
         this.setState({
           products: data,
-          loading: false,
           resultsReceived: false,
         });
       });
@@ -47,7 +47,6 @@ export default class ProductList extends React.Component {
             products: data._embedded.product,
             pageSize: data.page_size,
             totalItems: data.total_items,
-            loading: false,
           });
         });
     }
@@ -72,6 +71,10 @@ export default class ProductList extends React.Component {
   }
 
   render() {
+    let pageSize = this.state.pageSize;
+      if (this.state.totalItems === 0) {
+          pageSize = 0;
+      }
     return (
       <div className="container">
         <div className="row">
@@ -96,7 +99,7 @@ export default class ProductList extends React.Component {
           <div className="col-xs-12">
             <p>
               {this.state.resultsReceived
-                ? `Showing ${this.state.pageSize} of ${this.state.totalItems} results`
+                ? `Showing ${pageSize} of ${this.state.totalItems} results`
                 : null}
             </p>
           </div>
