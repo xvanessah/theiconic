@@ -11,4 +11,4 @@ npm install (or yarn install if you use yarn)<br/>
 <br/>
 In one terminal window run ```npm run webpack-serverside```<br/>
 In another terminal window run ```npm run webpack-dev```<br/>
-In another termianl window run ``` ./bin/console server:start```<br/>
+In another terminal window run ``` ./bin/console server:start```<br/>
